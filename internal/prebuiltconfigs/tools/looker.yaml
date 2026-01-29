@@ -1041,6 +1041,20 @@ tools:
           A JSON array of objects, where each object represents a column and contains details
           such as `table_name`, `column_name`, `data_type`, and `is_nullable`.
 
+    validate_project:
+        kind: looker-validate-project
+        source: looker-source
+        description: |
+          This tool performs lint validation of all lookml files in the project.
+          Returns a list of errors found, if any.
+
+          Validating the content of all the files in a project can be computationally
+          intensive for large projects. For best performance, call this tool only when
+          you really want to recompute project validation.
+
+          Parameters:
+          - project_id (required): The id of the project to validate in Looker.
+          - fields (optional): Requested fields.
 
 toolsets:
     looker_tools:
@@ -1077,3 +1091,4 @@ toolsets:
         - get_connection_databases
         - get_connection_tables
         - get_connection_table_columns
+        - validate_project
