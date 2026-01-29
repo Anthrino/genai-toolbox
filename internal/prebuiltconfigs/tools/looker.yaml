@@ -1041,6 +1041,20 @@ tools:
           A JSON array of objects, where each object represents a column and contains details
           such as `table_name`, `column_name`, `data_type`, and `is_nullable`.
 
+    create_view_from_table:
+        kind: looker-create-view-from-table
+        source: looker-source
+        description: |
+          Triggers LookML view generation for specified database tables.
+          This tool generates boilerplate LookML views directly from the database schema.
+          It does not create model or explore files, only view files in the specified folder.
+
+          Parameters:
+          - project_id (required): The id of the project to create the view in.
+          - connection (required): The database connection name.
+          - tables (required): A list of tables to generate views for, in 'schema.table' or 'table' format.
+          - folder_name (optional): The folder to place the view files in (defaults to 'views/').
+
     run_lookml_test:
         kind: looker-run-lookml-test
         source: looker-source
@@ -1106,3 +1120,4 @@ toolsets:
         - get_connection_table_columns
         - validate_project
         - run_lookml_test
+        - create_view_from_table
