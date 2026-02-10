@@ -1041,6 +1041,53 @@ tools:
           A JSON array of objects, where each object represents a column and contains details
           such as `table_name`, `column_name`, `data_type`, and `is_nullable`.
 
+    create_view_from_table:
+        kind: looker-create-view-from-table
+        source: looker-source
+        description: |
+          Triggers LookML view generation for specified database tables.
+          This tool generates boilerplate LookML views directly from the database schema.
+          It does not create model or explore files, only view files in the specified folder.
+
+          Parameters:
+          - project_id (required): The id of the project to create the view in.
+          - connection (required): The database connection name.
+          - tables (required): A list of tables to generate views for, in 'schema.table' or 'table' format.
+          - folder_name (optional): The folder to place the view files in (defaults to 'views/').
+
+    run_lookml_test:
+        kind: looker-run-lookml-test
+        source: looker-source
+        description: |
+          Runs all LookML tests in the project, optionally filtered by file, test, and/or model.
+          Returns a list of test results.
+
+          Parameters:
+          - project_id (required): The id of the project to run LookML tests for.
+          - file_id (optional): Optional id of the file to run tests for.
+          - test (optional): Optional name of the test to run.
+          - model (optional): Optional name of the model to run tests for.
+
+    get_all_lookml_tests:
+        kind: looker-get-all-lookml-tests
+        source: looker-source
+        description: |
+          Returns a list of tests which can be run to validate a project's LookML code and/or the underlying data, optionally filtered by the file id.
+
+    validate_project:
+        kind: looker-validate-project
+        source: looker-source
+        description: |
+          This tool performs lint validation of all lookml files in the project.
+          Returns a list of errors found, if any.
+
+          Validating the content of all the files in a project can be computationally
+          intensive for large projects. For best performance, call this tool only when
+          you really want to recompute project validation.
+
+          Parameters:
+          - project_id (required): The id of the project to validate in Looker.
+          - fields (optional): Requested fields.
 
 toolsets:
     looker_tools:
@@ -1077,3 +1124,6 @@ toolsets:
         - get_connection_databases
         - get_connection_tables
         - get_connection_table_columns
+        - validate_project
+        - run_lookml_test
+        - create_view_from_table
